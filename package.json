@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-press",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Static markdown content for creating blogs, videos",
   "repository": {
     "type": "git",
