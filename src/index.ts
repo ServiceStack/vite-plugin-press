@@ -1,7 +1,7 @@
 import * as markdownVideos from './videos'
 import * as markdownPosts from './posts'
 import matter from './frontmatter'
-import { Options, VitePluginPressPlugin, VirtualPress } from "./types.d"
+import { Options, VitePluginPressPlugin } from "./types.d"
 
 const videosPath = './src/_videos'
 const postsPath = './src/_posts'
@@ -54,4 +54,4 @@ export default function(options:Options={}): VitePluginPressPlugin {
     }
 }
 
-export { VirtualPress, matter }
+export { matter }
