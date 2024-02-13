@@ -1,0 +1,56 @@
+import './assets/styles/main.css'
+import './assets/styles/index.css'
+
+import { createApp } from 'vue'
+import { createHead } from '@unhead/vue'
+import App from './App.vue'
+
+import ServiceStackVue from "@servicestack/vue"
+import { createRouter, createWebHistory } from 'vue-router/auto'
+import { setupLayouts } from 'virtual:generated-layouts'
+import press from "virtual:press"
+import { Icon } from '@iconify/vue'
+
+import LiteYoutube from "@/components/LiteYouTube"
+import { client } from "@/api"
+
+const app = createApp(App)
+const head = createHead()
+
+export const router = createRouter({
+    history: createWebHistory(),
+    scrollBehavior(to, _from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition
+        }
+        if (to.hash) {
+            return { el: to.hash, behavior: 'smooth' }
+        } else {
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 1)
+        }
+    },
+    extendRoutes(routes:any) {
+        routes.forEach((route:any) => {
+            // Force all pages in /admin to use /layout/admin.vue
+            if (route.path.startsWith('/admin')) {
+                (route.children ?? []).forEach((child:any) => {
+                    child.meta ??= {}
+                    child.meta.layout = 'admin'
+                })
+            }
+        })
+        return setupLayouts(routes)
+    },
+})
+
+app
+    .use(head)
+    .use(router)
+    .use(ServiceStackVue)
+    .provide('client', client)
+    .provide('press', press)
+    .component('LiteYouTube', LiteYoutube)
+    .component('Iconify', Icon)
+    .mount('#app')

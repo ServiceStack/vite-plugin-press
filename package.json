@@ -1,0 +1,55 @@
+{
+  "name": "vite-plugin-press",
+  "version": "1.0.0",
+  "description": "Static markdown content for creating blogs, videos",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ServiceStack/vite-plugin-press.git"
+  },
+  "author": "ServiceStack",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/ServiceStack/vite-plugin-press/issues"
+  },
+  "homepage": "https://github.com/ServiceStack/vite-plugin-press#readme",
+  "sideEffects": false,
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./client": {
+      "types": "./client.d.ts"
+    },
+    "./*": "./*"
+  },
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "dev": "npm run build -- --watch",
+    "release": "bump --commit --push --tag && npm publish",
+    "lint": "eslint \"{src,test}/**/*.ts\"",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "bump": "^0.2.5",
+    "eslint": "^8.56.0",
+    "eslint-plugin-jest": "^27.6.3",
+    "js-yaml": "^4.1.0",
+    "tsup": "^8.0.2",
+    "vite": "^5.1.1"
+  },
+  "peerDependencies": {
+    "vite": "^2.0.0"
+  }
+}
