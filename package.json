@@ -43,7 +43,6 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
-    "bump": "^0.2.5",
     "eslint": "^8.56.0",
     "eslint-plugin-jest": "^27.6.3",
     "js-yaml": "^4.1.0",
