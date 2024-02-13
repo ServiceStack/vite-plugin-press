@@ -35,7 +35,7 @@
     "prepublishOnly": "npm run build",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "dev": "npm run build -- --watch",
-    "typecheck": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "release": "bump patch --commit --push --tag && npm publish",
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "lint:fix": "npm run lint -- --fix",
