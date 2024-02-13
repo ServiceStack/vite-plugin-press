@@ -1,7 +1,7 @@
 import * as markdownVideos from './videos'
 import * as markdownPosts from './posts'
 import matter from './frontmatter'
-import { Options, VitePluginPressPlugin } from "./types.d"
+import { Options, VitePluginPressPlugin, VirtualPress } from "./types.d"
 
 const videosPath = './src/_videos'
 const postsPath = './src/_posts'
@@ -15,7 +15,7 @@ const fallbackPostImageUrl:string = "https://source.unsplash.com/random/2000x100
  */
 export default function(options:Options={}): VitePluginPressPlugin {
     options = Object.assign({ fallbackAuthorProfileUrl, fallbackPostImageUrl, videosPath, postsPath }, options)
-    console.log('options', options)
+
     const virtualModuleId = 'virtual:press'
     const resolvedVirtualModuleId = '\0' + virtualModuleId
     
@@ -55,3 +55,4 @@ export default function(options:Options={}): VitePluginPressPlugin {
 }
 
 export { matter }
+export { VirtualPress }
