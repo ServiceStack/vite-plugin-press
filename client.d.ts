@@ -1,18 +1,22 @@
 declare module 'virtual:press' {
     // eslint-disable-next-line
-    const M: VideoGroups
+    const M: VirtualPress
 
     export type Component = any
-    export type VideoGroups = { [key: string]: Video[] }
-    export type Posts = { config: any, authors: Author[], posts: Post[], authorSlugs: { [name: string]: Author }, tagSlugs: { [name: string]: string } }
-    export type VideoComponents = { [key: string]: { [group: string]: () => Promise<Component> } }
-    export type PostComponents = { [key: string]: () => Promise<Component> }
+    export type Blog = { config: any, authors: Author[], posts: Post[], authorSlugs: { [name: string]: Author }, tagSlugs: { [name: string]: string } }
+    export type VideoGroups = { [group: string]: Video[] }
+    export type WhatsNewReleases = { [release: string]: WhatsNew[] }
+    export type PostComponents = { [slug: string]: () => Promise<Component> }
+    export type VideoComponents = { [group: string]: { [slug: string]: () => Promise<Component> } }
+    export type WhatsNewComponents = { [release: string]: { [slug: string]: () => Promise<Component> } }
     export type VirtualPress = {
+        blog: Blog
         videos: VideoGroups
-        posts: Posts
+        whatsNew: WhatsNewReleases
         components: {
+            blog: PostComponents
             videos: VideoComponents
-            posts: PostComponents
+            whatsNew: WhatsNewComponents
         }
     }
     
@@ -42,6 +46,11 @@ declare module 'virtual:press' {
         url: string
     }
     
+    export type WhatsNew = Doc & {
+        url: string
+        image: string
+    }
+    
     export type Author = {
         name: string
         email: string
@@ -52,6 +61,6 @@ declare module 'virtual:press' {
         gitHubUrl: string
         mastodonUrl: string
     }
-
+            
     export default M
 }

@@ -20,6 +20,12 @@ export interface Options {
     postsPath?: string
 
     /**
+     * Where to look for What's New Features
+     * @default './src/_whatsnew'
+     */
+    whatsNewPath?: string
+
+    /**
      * Fallback Author profile url
      */
     fallbackAuthorProfileUrl?: string
@@ -38,16 +44,20 @@ export interface VitePluginPressPlugin extends Plugin {
 }
 
 export type Component = any
-export type VideoGroups = { [key: string]: Video[] }
-export type Posts = { config: any, authors: Author[], posts: Post[], authorSlugs: { [name: string]: Author }, tagSlugs: { [name: string]: string } }
-export type VideoComponents = { [key: string]: { [group: string]: () => Promise<Component> } }
-export type PostComponents = { [key: string]: () => Promise<Component> }
+export type Blog = { config: any, authors: Author[], posts: Post[], authorSlugs: { [name: string]: Author }, tagSlugs: { [name: string]: string } }
+export type VideoGroups = { [group: string]: Video[] }
+export type WhatsNewReleases = { [release: string]: WhatsNew[] }
+export type PostComponents = { [slug: string]: () => Promise<Component> }
+export type VideoComponents = { [group: string]: { [slug: string]: () => Promise<Component> } }
+export type WhatsNewComponents = { [release: string]: { [slug: string]: () => Promise<Component> } }
 export type VirtualPress = {
+    blog: Blog
     videos: VideoGroups
-    posts: Posts
+    whatsNew: WhatsNewReleases
     components: {
+        blog: PostComponents
         videos: VideoComponents
-        posts: PostComponents
+        whatsNew: WhatsNewComponents
     }
 }
 
@@ -65,6 +75,7 @@ export type Doc = {
     minutesToRead: number
     order?: number
     draft?: boolean
+    group?: string
 }
 
 export type Post = Doc & {
@@ -75,6 +86,11 @@ export type Post = Doc & {
 
 export type Video = Doc & {
     url: string
+}
+
+export type WhatsNew = Doc & {
+    url: string
+    image: string
 }
 
 export type Author = {

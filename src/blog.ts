@@ -1,28 +1,36 @@
 import fs from 'fs'
 import path from 'path'
 import { leftPart, rightPart, lastLeftPart, createDoc, generateSlug } from "./utils"
-import { Options, Post, Author } from "./types"
+import { Options, Post, Author, Blog } from "./types"
 
 export function loadFrom(fromDir:string, options: Options = {}) {
-    const authorSlugs : {[name:string]:Author} = {}
-    const tagSlugs : {[name:string]:string} = {}
+    const authorSlugs : {[slug:string]:Author} = {}
+    const tagSlugs : {[slug:string]:string} = {}
     const posts: Post[] = []
 
+    const fromDirExists = fs.existsSync(fromDir)
+
     const authorsPath = path.join(fromDir,'authors.json')
-    const authors = fs.existsSync(authorsPath)
+    const authors = fromDirExists && fs.existsSync(authorsPath)
         ? JSON.parse(fs.readFileSync(authorsPath, 'utf-8'))
         : []
 
     const configPath = path.join(fromDir,'config.json')
-    const config = fs.existsSync(configPath)
+    const config = fromDirExists && fs.existsSync(configPath)
         ? JSON.parse(fs.readFileSync(configPath, 'utf-8'))
         : {}
 
-    const files = fs.readdirSync(fromDir).filter(x => fs.statSync(path.join(fromDir, x)).isFile() && x.endsWith('.md'))
+    const files = fromDirExists 
+        ? fs.readdirSync(fromDir).filter(x => fs.statSync(path.join(fromDir, x)).isFile() && x.endsWith('.md'))
+        : []
+
+    if (!fromDirExists) {
+        return { config, authors, posts, authorSlugs, tagSlugs } as Blog
+    }
     
     if (!options.quiet) {
         const plural = files.length > 1 ? 's' : ''
-        console.log(`Found ${files.length} post${plural}`)
+        console.log(`Found ${files.length} Post${plural}`)
     }
 
     files.forEach(file => {
@@ -50,10 +58,10 @@ export function loadFrom(fromDir:string, options: Options = {}) {
     })
     posts.reverse()
     
-    return { config, authors, posts, authorSlugs, tagSlugs }
+    return { config, authors, posts, authorSlugs, tagSlugs } as Blog
 }
 
-export function generateComponents({ posts }:any) {
+export function generateComponents({ posts }:Blog) {
     return [
         `{`,
         ...posts.map((doc:any) => `"${doc.slug}": () => import('/${doc.path}'),`),

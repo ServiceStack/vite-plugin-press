@@ -1,16 +1,20 @@
 import fs from 'fs'
 import path from 'path'
 import { createDoc } from "./utils"
-import { Options } from "./types"
+import { Options, Video, VideoGroups } from "./types"
 
 export function loadFrom(fromDir:string, options: Options = {}) {
-    const groups :{[key:string]:any[]} = {}
+    const groups:VideoGroups = {}
+
+    if (!fs.existsSync(fromDir)) {
+        return groups
+    }
     
     const dirs = fs.readdirSync(fromDir).filter(x => fs.statSync(path.join(fromDir, x)).isDirectory())
     if (!options.quiet) {
         const count = dirs.reduce((acc,x) => acc + fs.readdirSync(path.join(fromDir, x)).length, 0)
         const plural = count > 1 ? 's' : ''
-        console.log(`Found ${dirs.length} video group${dirs.length > 1 ? 's' : ''} with ${count} video${plural}`)
+        console.log(`Found ${dirs.length} Video Group${dirs.length > 1 ? 's' : ''} with ${count} Video${plural}`)
     }
 
     dirs.forEach(dir => {
@@ -18,10 +22,11 @@ export function loadFrom(fromDir:string, options: Options = {}) {
         fs.readdirSync(path.join(fromDir, dir)).forEach(file => {
             const filePath = path.join(fromDir, dir, file)
             if (!groups[group]) groups[group] = []
-            const doc = createDoc(filePath, options)
+            const doc = createDoc(filePath, options) as Video
             if (process.env.NODE_ENV != 'development' && doc.draft) {
                 return
             }
+            doc.group = group
             groups[group].push(doc)
         })
     })
@@ -29,7 +34,7 @@ export function loadFrom(fromDir:string, options: Options = {}) {
     return groups
 }
 
-export function generateComponents(groups:{[key:string]:any[]}) {
+export function generateComponents(groups:VideoGroups) {
     return [
     `{`,
     ...Object.keys(groups).flatMap(group => [

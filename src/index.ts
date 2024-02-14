@@ -1,10 +1,13 @@
+import * as markdownBlog from './blog'
 import * as markdownVideos from './videos'
-import * as markdownPosts from './posts'
+import * as markdownWhatsNew from './whatsnew'
 import matter from './frontmatter'
-import { Options, VitePluginPressPlugin, VirtualPress, Posts, VideoGroups, Doc, Post, Video, Author } from "./types.d"
+import { Options, VitePluginPressPlugin, VirtualPress, 
+         Blog, VideoGroups, WhatsNewReleases, Doc, Post, Video, WhatsNew, Author } from "./types.d"
 
 const videosPath = './src/_videos'
 const postsPath = './src/_posts'
+const whatsNewPath = './src/_whatsnew'
 const fallbackAuthorProfileUrl:string = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4'/%3E%3C/svg%3E"
 const fallbackPostImageUrl:string = "https://source.unsplash.com/random/2000x1000/?stationary"
 
@@ -14,7 +17,7 @@ const fallbackPostImageUrl:string = "https://source.unsplash.com/random/2000x100
  * @param { Options } options
  */
 export default function(options:Options={}): VitePluginPressPlugin {
-    options = Object.assign({ fallbackAuthorProfileUrl, fallbackPostImageUrl, videosPath, postsPath }, options)
+    options = Object.assign({ fallbackAuthorProfileUrl, fallbackPostImageUrl, videosPath, postsPath, whatsNewPath }, options)
 
     const virtualModuleId = 'virtual:press'
     const resolvedVirtualModuleId = '\0' + virtualModuleId
@@ -29,20 +32,25 @@ export default function(options:Options={}): VitePluginPressPlugin {
         },
         load(id:string) {
             if (id === resolvedVirtualModuleId) {
+                const blog = markdownBlog.loadFrom(options.postsPath!)
                 const videos = markdownVideos.loadFrom(options.videosPath!)
-                const posts = markdownPosts.loadFrom(options.postsPath!)
+                const whatsNew = markdownWhatsNew.loadFrom(options.whatsNewPath!)
 
+                const blogComponents = markdownBlog.generateComponents(blog)
                 const videoComponents = markdownVideos.generateComponents(videos)
-                const postComponents = markdownPosts.generateComponents(posts)
+                const whatsNewComponents = markdownWhatsNew.generateComponents(whatsNew)
                 
                 const sb = [`export default {`,
+                `    blog: ${JSON.stringify(blog)},`,
                 `    videos: ${JSON.stringify(videos)},`,
-                `    posts: ${JSON.stringify(posts)},`,
+                `    whatsNew: ${JSON.stringify(whatsNew)},`,
                 `    components: {`, 
+                `        blog:`,
+                blogComponents + ',',
                 `        videos:`,
                 videoComponents + ',',
-                `        posts:`,
-                postComponents + ',',
+                `        whatsNew:`,
+                whatsNewComponents + ',',
                 `       }`,                     
                 '}'].join('\n')
                 return sb
@@ -55,4 +63,4 @@ export default function(options:Options={}): VitePluginPressPlugin {
 }
 
 export { matter }
-export type { VirtualPress, Posts, VideoGroups, Doc, Post, Video, Author }
+export type { VirtualPress, Blog, VideoGroups, WhatsNewReleases, Doc, Post, Video, WhatsNew, Author }

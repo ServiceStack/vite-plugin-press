@@ -84,6 +84,8 @@ export function configureMarkdown(md:MarkdownIt) {
     return md
 }
 
+const currentDir = path.dirname(fileURLToPath(import.meta.url))
+
 // https://vitejs.dev/config/
 export default defineConfig({
     define: { API_URL: `"${target}"` },
@@ -110,6 +112,7 @@ export default defineConfig({
         Press({
           videosPath: '../content/_videos',
           postsPath: '../content/_posts',
+          whatsNewPath: '../content/_whatsnew',
         }),
         Layouts(),
         svgLoader(),
@@ -161,7 +164,9 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url))
+            '@': fileURLToPath(new URL('./src', import.meta.url)),
+            '@unhead/vue': path.join(currentDir, './node_modules/@unhead/vue'),
+            '@servicestack/vue': path.join(currentDir, './node_modules/@servicestack/vue'),
         }
     },
     server: {

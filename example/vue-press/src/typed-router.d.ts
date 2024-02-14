@@ -50,6 +50,7 @@ declare module 'vue-router/auto/routes' {
     '/posts/tagged/[tag]': RouteRecordInfo<'/posts/tagged/[tag]', '/posts/tagged/:tag', { tag: ParamValue<true> }, { tag: ParamValue<false> }>,
     '/posts/year/[year]': RouteRecordInfo<'/posts/year/[year]', '/posts/year/:year', { year: ParamValue<true> }, { year: ParamValue<false> }>,
     '/videos': RouteRecordInfo<'/videos', '/videos', Record<never, never>, Record<never, never>>,
+    '/whatsnew': RouteRecordInfo<'/whatsnew', '/whatsnew', Record<never, never>, Record<never, never>>,
   }
 }
 
