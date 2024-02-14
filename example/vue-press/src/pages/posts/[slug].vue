@@ -37,7 +37,7 @@
         </div>
         <div class="max-w-3xl mx-auto">
           <div id="post" class="prose lg:prose-xl max-w-none mb-32">
-            <MarkdownComponent type="posts" :doc="post" />
+            <MarkdownComponent type="blog" :doc="post" />
           </div>
         </div>
       </article>
