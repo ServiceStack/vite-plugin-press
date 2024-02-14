@@ -55,4 +55,4 @@ export default function(options:Options={}): VitePluginPressPlugin {
 }
 
 export { matter }
-export { VirtualPress, Posts, VideoGroups, Doc, Post, Video, Author }
+export type { VirtualPress, Posts, VideoGroups, Doc, Post, Video, Author }

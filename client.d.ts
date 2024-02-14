@@ -1,6 +1,6 @@
 declare module 'virtual:press' {
     // eslint-disable-next-line
-    const component: VideoGroups
+    const M: VideoGroups
 
     export type Component = any
     export type VideoGroups = { [key: string]: Video[] }
@@ -53,5 +53,5 @@ declare module 'virtual:press' {
         mastodonUrl: string
     }
 
-    export default component
+    export default M
 }

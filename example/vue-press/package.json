@@ -11,6 +11,7 @@
   "dependencies": {
     "@servicestack/client": "^2.1.1",
     "@servicestack/vue": "^3.0.88",
+    "@unhead/vue": "^1.8.10",
     "@vueuse/core": "^10.7.2",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
@@ -20,7 +21,6 @@
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.10",
     "@types/js-yaml": "^4.0.9",
-    "@unhead/vue": "^1.8.10",
     "@vitejs/plugin-vue": "^5.0.4",
     "autoprefixer": "^10.4.17",
     "js-yaml": "^4.1.0",

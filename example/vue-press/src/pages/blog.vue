@@ -137,14 +137,13 @@
 </template>
 
 <script setup lang="ts">
-import type { Post } from "@/meta"
-import FollowLinks from "@/components/FollowLinks.vue"
+import type { VirtualPress, Post } from "vite-plugin-press"
 import Logo from "@/assets/img/logo.svg"
 import { inject } from "vue"
 import { useHead } from "@unhead/vue"
 import { generateSlug, dateLabel, dateTimestamp } from "@/utils"
 
-const press = inject('press') as any
+const press:VirtualPress = inject('press')!
 useHead({ title: press.posts.config.blogTitle })
 
 function authorLink(name:any) {
@@ -156,10 +155,10 @@ function postLink(post:any) {
   return `/posts/${post.slug}`
 }
 function author(name:string) {
-  return name && press.posts.authors.filter((x:any) => x.name.toLowerCase() == name.toLowerCase())[0]
+  return name ? press.posts.authors.filter((x:any) => x.name.toLowerCase() == name.toLowerCase())[0] : null
 }
 function authorProfileUrl(name:string) {
-  return author(name)?.profileUrl!
+  return author(name)?.profileUrl ?? "/img/profiles/user1.svg"
 }
 
 const posts:Post[] = press.posts.posts

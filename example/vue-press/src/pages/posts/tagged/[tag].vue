@@ -25,9 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Post } from "@/meta"
-import BlogTitle from "@/components/BlogTitle.vue"
-import BlogPosts from "@/components/BlogPosts.vue"
+import type { VirtualPress, Post } from "vite-plugin-press"
 import { inject, computed, onMounted } from "vue"
 import { useHead } from "@unhead/vue"
 import { useRoute } from "vue-router"
@@ -36,7 +34,7 @@ import { generateSlug } from "@/utils"
 const route = useRoute()
 const tag = computed(() => (route.params as any)?.tag)
 
-const press = inject('press') as any
+const press:VirtualPress = inject('press')!
 
 const selectedTag = computed(() => press.posts.tagSlugs[tag.value])
 const allPosts:Post[] = press.posts.posts

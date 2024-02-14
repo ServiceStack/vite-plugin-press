@@ -7,7 +7,11 @@ export function loadFrom(fromDir:string, options: Options = {}) {
     const groups :{[key:string]:any[]} = {}
     
     const dirs = fs.readdirSync(fromDir).filter(x => fs.statSync(path.join(fromDir, x)).isDirectory())
-    if (!options.quiet) console.log(`Found ${dirs.length} video directories`)
+    if (!options.quiet) {
+        const count = dirs.reduce((acc,x) => acc + fs.readdirSync(path.join(fromDir, x)).length, 0)
+        const plural = count > 1 ? 's' : ''
+        console.log(`Found ${dirs.length} video group${dirs.length > 1 ? 's' : ''} with ${count} video${plural}`)
+    }
 
     dirs.forEach(dir => {
         const group = dir

@@ -15,6 +15,10 @@ declare module '*.md' {
   export default component
 }
 
+declare module 'js-yaml' {
+  export function load(str: string, options?:any): any
+}
+
 declare module 'virtual:press' {
   // eslint-disable-next-line
   const component: any;

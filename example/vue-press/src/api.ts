@@ -1,11 +1,12 @@
-import { JsonServiceClient, combinePaths, Authenticate } from "@servicestack/client"
+import { JsonServiceClient, combinePaths } from "@servicestack/client"
 import { useMetadata, useAuth } from "@servicestack/vue"
+import { Authenticate } from "./dtos"
 
 export const client = new JsonServiceClient()
 
 export function useApp() {
 
-    async function load (force?:boolean) {
+    async function load () {
         const { loadMetadata } = useMetadata()
         await loadMetadata({
             olderThan: location.search.includes('clear=metadata') ? 0 : 60 * 60 * 1000 //1hr 

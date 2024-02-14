@@ -20,7 +20,10 @@ export function loadFrom(fromDir:string, options: Options = {}) {
 
     const files = fs.readdirSync(fromDir).filter(x => fs.statSync(path.join(fromDir, x)).isFile() && x.endsWith('.md'))
     
-    if (!options.quiet) console.log(`Found ${files.length} posts`)
+    if (!options.quiet) {
+        const plural = files.length > 1 ? 's' : ''
+        console.log(`Found ${files.length} post${plural}`)
+    }
 
     files.forEach(file => {
         const filePath = path.join(fromDir, file)

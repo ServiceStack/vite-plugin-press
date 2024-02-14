@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import type {Post, Author, Press} from "../../src"
+import type { VirtualPress, Post, Author } from "vite-plugin-press"
 import { ref, inject } from "vue"
 import { useHead } from "@unhead/vue"
 import { generateSlug, dateLabel, dateTimestamp } from "@/utils"
@@ -52,7 +52,7 @@ defineProps<{
   posts: Post[]
 }>()
 
-const press = inject('press') as Press
+const press:VirtualPress = inject('press')!
 useHead({ title: press.posts.config.blogTitle })
 
 function authorLink(name:any) {
@@ -67,6 +67,6 @@ function author(name:string) : Author | undefined {
   return name ? press.posts.authors.find((x:Author) => x.name.toLowerCase() == name.toLowerCase()) : undefined 
 }
 function authorProfileUrl(name:string) {
-  return author(name)?.profileUrl ?? "/img/profiles/user1.svg"
+  return author(name)?.profileUrl!
 }
 </script>

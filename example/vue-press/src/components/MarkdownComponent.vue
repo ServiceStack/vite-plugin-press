@@ -5,7 +5,7 @@
 
 <script setup lang="ts">
 import { inject, defineAsyncComponent, h } from "vue"
-import type { Doc } from "@/meta"
+import type { VirtualPress, Doc } from "vite-plugin-press"
 
 const props = defineProps<{
   doc: Doc
@@ -13,8 +13,8 @@ const props = defineProps<{
   group?: string
 }>()
 
-const press = inject('press') as any
-const components = press.components[props.type] || {}
+const press:VirtualPress = inject('press')!
+const components = (press.components as any)[props.type] || {}
 
 const factory = (props.group
     ? components[props.group] && components[props.group][props.doc.slug]

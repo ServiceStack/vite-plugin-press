@@ -25,9 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Post } from "@/meta"
-import BlogTitle from "@/components/BlogTitle.vue"
-import BlogPosts from "@/components/BlogPosts.vue"
+import type { VirtualPress, Post } from "vite-plugin-press"
 import { inject, computed, onMounted } from "vue"
 import { useHead } from "@unhead/vue"
 import { useRoute } from "vue-router"
@@ -35,7 +33,7 @@ import { useRoute } from "vue-router"
 const route = useRoute()
 const forYear = computed(() => parseInt((route.params as any)?.year ?? 0))
 
-const press = inject('press') as any
+const press:VirtualPress = inject('press')!
 const allPosts:Post[] = press.posts.posts
 const allYears = [...new Set(allPosts.map((x:any) => new Date(x.date).getFullYear()) as number[])]
 allYears.sort((a:number, b:number) => b - a)

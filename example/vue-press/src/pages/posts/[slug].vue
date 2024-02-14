@@ -43,7 +43,7 @@
       </article>
     </div>
 
-    <div v-if="authorPosts.length" class="bg-gray-50 py-20">
+    <div v-if="author && authorPosts.length" class="bg-gray-50 py-20">
       <div class="max-w-3xl mx-auto">
         <div class="flex justify-between">
           <div>
@@ -117,22 +117,20 @@
 </template>
 
 <script setup lang="ts">
-import type { Post, Author } from "@/meta"
-import AuthorLinks from "@/components/AuthorLinks.vue"
-import MarkdownComponent from "@/components/MarkdownComponent.vue"
+import type { VirtualPress, Post, Author } from "vite-plugin-press"
 import { inject, computed, onMounted } from "vue"
 import { generateSlug, dateLabel, dateTimestamp } from "@/utils"
 import { useHead } from "@unhead/vue"
 import { useRoute } from "vue-router"
 
 const route = useRoute()
-const press = inject('press') as any
+const press:VirtualPress = inject('press')!
 const slug = computed(() => (route.params as any)?.slug)
 const allPosts:Post[] = press.posts.posts
 const post = computed(() => allPosts.find((x:any) => x.slug == slug.value) as Post)
 
-const author = computed<Author>(() => post.value ? press.posts.authors.find((x:any) => x.name.toLowerCase() == post.value.author?.toLowerCase()) : null)
-const authorPosts = computed<Post[]>(() => author.value ? allPosts.filter((x:any) => x.author?.toLowerCase() == author.value.name.toLowerCase()).slice(0,4) : [])
+const author = computed(() => post.value ? press.posts.authors.find((x:any) => x.name.toLowerCase() == post.value.author?.toLowerCase()) : null)
+const authorPosts = computed<Post[]>(() => author.value ? allPosts.filter((x:any) => x.author?.toLowerCase() == author.value!.name.toLowerCase()).slice(0,4) : [])
 const authorProfileUrl = computed(() => author.value?.profileUrl ?? "/img/profiles/user1.svg")
 const authorHref = computed(() => author.value ? `/posts/author/${generateSlug(author.value.name)}` : null)
 

@@ -18,9 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Author, Post } from "@/meta"
-import BlogTitle from "@/components/BlogTitle.vue"
-import BlogPosts from "@/components/BlogPosts.vue"
+import type { VirtualPress, Post, Author } from "vite-plugin-press"
 import { inject } from "vue"
 import { generateSlug } from "@/utils"
 import { useHead } from "@unhead/vue"
@@ -29,10 +27,10 @@ import { useRoute } from "vue-router"
 const route = useRoute()
 const name = (route.params as any)?.name
 
-const press = inject('press') as any
+const meta:VirtualPress = inject('meta')!
 
-const author:Author = press.posts.authors.find((x:any) => generateSlug(x.name) == name)
-const authorPosts:Post[] = author ? press.posts.posts.filter((x:any) => x.author.toLowerCase() == author.name.toLowerCase()) : []
+const author = meta.posts.authors.find((x:any) => generateSlug(x.name) == name)
+const authorPosts:Post[] = author ? meta.posts.posts.filter((x:any) => x.author.toLowerCase() == author.name.toLowerCase()) : []
 
 if (author) {
   useHead({ title: `${author.name} posts` })
