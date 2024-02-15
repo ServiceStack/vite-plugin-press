@@ -19,6 +19,7 @@ const head = createHead()
 
 export const router = createRouter({
     history: createWebHistory(),
+    // Scroll to top on navigation
     scrollBehavior(to, _from, savedPosition) {
         if (savedPosition) {
             return savedPosition
@@ -43,6 +44,12 @@ export const router = createRouter({
         })
         return setupLayouts(routes)
     },
+})
+// handle external links
+router.beforeEach((to, _from, next) => {
+    if (to.path.startsWith('/http')) 
+        location.href = to.path.substring(1)
+    else next()
 })
 
 app
