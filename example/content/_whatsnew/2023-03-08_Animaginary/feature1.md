@@ -1,6 +1,6 @@
 ---
 title: Animaginary
-url: https://example.org
+url: /blog
 image: /img/whatsnew/animaginary.svg
 ---
 
