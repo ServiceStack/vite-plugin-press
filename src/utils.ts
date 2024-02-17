@@ -58,7 +58,7 @@ export function generateSlug(str:string) {
         .replace(/\-$/g, '');     // Remove trailing -
 }
 
-export function createDoc(filePath:string, options: Options = {}):Doc {
+export function createDoc(filePath:string, _options: Options = {}):Doc {
     filePath = filePath.replaceAll('\\', '/')
     const file = lastRightPart(filePath, '/')!
     const txt = fs.readFileSync(filePath, 'utf-8')

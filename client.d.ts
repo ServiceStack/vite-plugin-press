@@ -6,20 +6,24 @@ declare module 'virtual:press' {
     export type Blog = { config: any, authors: Author[], posts: Post[], authorSlugs: { [name: string]: Author }, tagSlugs: { [name: string]: string } }
     export type VideoGroups = { [group: string]: Video[] }
     export type WhatsNewReleases = { [release: string]: WhatsNew[] }
+    export type Includes = { includes: Doc[] }
     export type PostComponents = { [slug: string]: () => Promise<Component> }
     export type VideoComponents = { [group: string]: { [slug: string]: () => Promise<Component> } }
     export type WhatsNewComponents = { [release: string]: { [slug: string]: () => Promise<Component> } }
+    export type IncludesComponents = { [path: string]: () => Promise<Component> }
     export type VirtualPress = {
         blog: Blog
         videos: VideoGroups
         whatsNew: WhatsNewReleases
+        includes: Includes
         components: {
             blog: PostComponents
             videos: VideoComponents
             whatsNew: WhatsNewComponents
+            includes: IncludesComponents
         }
     }
-    
+        
     export type Doc = {
         title: string
         slug: string

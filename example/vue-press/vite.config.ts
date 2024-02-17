@@ -77,10 +77,54 @@ export function configureMarkdown(md:MarkdownIt) {
             }
         })
     }
+    function alert({title,cls}:any) {
+        return ({
+            render(tokens:any, idx:any) {
+                const token = tokens[idx]
+                if (token.nesting === 1) {
+                    return `<div class="${cls||'tip'} custom-block">
+                                <p class="custom-block-title">${title||'TIP'}</p>`
+                } else {
+                    return `</div>`
+                }
+            }
+        })
+    }
+    function include() {
+        return ({
+            validate(params:any) { 
+                return params.trim().match(/^include\s+(.*)$/) 
+            },
+            render(tokens:any, idx:any) {
+                //console.log('tokens', tokens, idx)
+                const token = tokens[idx]
+                if (token.nesting === 1) {
+                    return `<include src="${token.info.trim().substring('include '.length).replace(/:+$/g,'')}"></include>`
+                } else {
+                    return ``
+                }
+            }
+        })
+    }
+    
     md.linkify.set({ fuzzyLink: false })
     md.use(prism)
+    md.use(container, 'tip', alert({}))
+    md.use(container, 'info', alert({title:'INFO',cls:'info'}))
+    md.use(container, 'warning', alert({title:'WARNING',cls:'warning'}))
+    md.use(container, 'danger', alert({title:'DANGER',cls:'danger'}))
     md.use(container, 'copy', copy({cls:'not-prose copy cp', icon:'bg-sky-500'}))
     md.use(container, 'sh', copy({cls:'not-prose sh-copy cp', box:'bg-gray-800', icon:'bg-green-600', txt:'whitespace-pre text-base text-gray-100'}))
+    md.use(container, 'include', include())
+    md.use(container, 'dynamic', {
+        validate: () => true,
+        render: function (tokens:any, idx:any) {
+            const token = tokens[idx];
+            return token.nesting === 1
+                ? '<div class="' + token.info.trim().replace(/[{}.]/g,'') + '">'
+                : '</div>';
+        },
+    })
     return md
 }
 
@@ -113,6 +157,7 @@ export default defineConfig({
           videosPath: '../content/_videos',
           postsPath: '../content/_posts',
           whatsNewPath: '../content/_whatsnew',
+          includesPath: '../content/_includes',
         }),
         Layouts(),
         svgLoader(),

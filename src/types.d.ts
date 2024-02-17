@@ -26,6 +26,17 @@ export interface Options {
     whatsNewPath?: string
 
     /**
+     * Where to look for Includes
+     * @default './src/_includes'
+     */
+    includesPath?: string
+
+    /**
+     * Where to publish json metadata
+     */
+    metadataPath?: string
+
+    /**
      * Fallback Author profile url
      */
     fallbackAuthorProfileUrl?: string
@@ -47,17 +58,21 @@ export type Component = any
 export type Blog = { config: any, authors: Author[], posts: Post[], authorSlugs: { [name: string]: Author }, tagSlugs: { [name: string]: string } }
 export type VideoGroups = { [group: string]: Video[] }
 export type WhatsNewReleases = { [release: string]: WhatsNew[] }
+export type Includes = { includes: Doc[] }
 export type PostComponents = { [slug: string]: () => Promise<Component> }
 export type VideoComponents = { [group: string]: { [slug: string]: () => Promise<Component> } }
 export type WhatsNewComponents = { [release: string]: { [slug: string]: () => Promise<Component> } }
+export type IncludesComponents = { [path: string]: () => Promise<Component> }
 export type VirtualPress = {
     blog: Blog
     videos: VideoGroups
     whatsNew: WhatsNewReleases
+    includes: Includes
     components: {
         blog: PostComponents
         videos: VideoComponents
         whatsNew: WhatsNewComponents
+        includes: IncludesComponents
     }
 }
 

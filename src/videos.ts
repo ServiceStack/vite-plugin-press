@@ -12,14 +12,14 @@ export function loadFrom(fromDir:string, options: Options = {}) {
     
     const dirs = fs.readdirSync(fromDir).filter(x => fs.statSync(path.join(fromDir, x)).isDirectory())
     if (!options.quiet) {
-        const count = dirs.reduce((acc,x) => acc + fs.readdirSync(path.join(fromDir, x)).length, 0)
+        const count = dirs.reduce((acc,x) => acc + fs.readdirSync(path.join(fromDir, x)).filter(x => x.endsWith('.md') || x.endsWith('.mdx')).length, 0)
         const plural = count > 1 ? 's' : ''
         console.log(`Found ${dirs.length} Video Group${dirs.length > 1 ? 's' : ''} with ${count} Video${plural}`)
     }
 
     dirs.forEach(dir => {
         const group = dir
-        fs.readdirSync(path.join(fromDir, dir)).forEach(file => {
+        fs.readdirSync(path.join(fromDir, dir)).filter(x => x.endsWith('.md') || x.endsWith('.mdx')).forEach(file => {
             const filePath = path.join(fromDir, dir, file)
             if (!groups[group]) groups[group] = []
             const doc = createDoc(filePath, options) as Video

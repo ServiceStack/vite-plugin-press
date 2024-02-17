@@ -21,7 +21,7 @@ export function loadFrom(fromDir:string, options: Options = {}) {
         : {}
 
     const files = fromDirExists 
-        ? fs.readdirSync(fromDir).filter(x => fs.statSync(path.join(fromDir, x)).isFile() && x.endsWith('.md'))
+        ? fs.readdirSync(fromDir).filter(x => fs.statSync(path.join(fromDir, x)).isFile() && (x.endsWith('.md') || x.endsWith('.mdx')))
         : []
 
     if (!fromDirExists) {
