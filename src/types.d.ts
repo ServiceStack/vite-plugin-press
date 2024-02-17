@@ -34,7 +34,7 @@ export interface Options {
     /**
      * Where to publish json metadata
      */
-    metadataPath?: string
+    metaPath?: string
 
     /**
      * Fallback Author profile url

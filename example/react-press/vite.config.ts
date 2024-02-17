@@ -59,7 +59,7 @@ export default defineConfig(async () => {
 
   // Convert :::component{.cls}::: Markdown Containers to <component className="cls" />
   function remarkContainers() {
-    return function (tree: any) {
+    return function (tree:any) {
       let prevType = ''
       visit(tree, (node): any => {
         const type = node.type
@@ -109,6 +109,7 @@ export default defineConfig(async () => {
         postsPath: '../content/_posts',
         whatsNewPath: '../content/_whatsnew',
         includesPath: '../content/_includes',
+        metadataPath: './public/api',
       }),
     ],
     resolve: {

@@ -2,7 +2,7 @@ import * as markdownBlog from './blog'
 import * as markdownVideos from './videos'
 import * as markdownWhatsNew from './whatsnew'
 import * as markdownIncludes from './includes'
-import * as markdownMeta from './meta'
+import * as markdownMetadata from './metadata'
 import matter from './frontmatter'
 import { Options, VitePluginPressPlugin, VirtualPress, 
          Blog, VideoGroups, WhatsNewReleases, Doc, Post, Video, WhatsNew, Author } from "./types.d"
@@ -40,7 +40,8 @@ export default function(options:Options={}): VitePluginPressPlugin {
                 const whatsNew = markdownWhatsNew.loadFrom(options.whatsNewPath!)
                 const includes = markdownIncludes.loadFrom(options.includesPath!)
                 if (options.metadataPath) {
-                    markdownMeta.generateMetadata(options.metadataPath, { blog, videos, whatsNew, includes })
+                    markdownMetadata.generateMetadata({ blog, videos, whatsNew }, 
+                        { toDir:options.metadataPath, baseUrl:options.baseUrl })
                 }
 
                 const blogComponents = markdownBlog.generateComponents(blog)
