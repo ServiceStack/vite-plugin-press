@@ -6,6 +6,8 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+example/react-press/public/api
+example/vue-press/public/api
 
 # Runtime data
 pids
