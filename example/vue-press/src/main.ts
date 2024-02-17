@@ -12,6 +12,7 @@ import press from "virtual:press"
 import { Icon } from '@iconify/vue'
 
 import LiteYoutube from "@/components/LiteYouTube"
+import Include from "@/components/Include.vue"
 import { client } from "@/api"
 
 const app = createApp(App)
@@ -60,4 +61,5 @@ app
     .provide('press', press)
     .component('LiteYouTube', LiteYoutube)
     .component('Iconify', Icon)
+    .component('Include', Include)
     .mount('#app')
