@@ -208,19 +208,19 @@ Most of [VitePress Markdown Containers](https://vitepress.dev/guide/markdown#cus
 are also available in Razor SSG websites for enabling rich, wrist-friendly consistent markup in your Markdown pages, e.g:
 
 ```md
-::: info
+:::info
 This is an info box.
 :::
 
-::: tip
+:::tip
 This is a tip.
 :::
 
-::: warning
+:::warning
 This is a warning.
 :::
 
-::: danger
+:::danger
 This is a dangerous warning.
 :::
 
@@ -229,24 +229,28 @@ Copy Me!
 :::
 ```
 
-::: info
+:::info{.test}
 This is an info box.
 :::
 
-::: tip
+:::tip
 This is a tip.
 :::
 
-::: warning
+:::warning
 This is a warning.
 :::
 
-::: danger
+:::danger
 This is a dangerous warning.
 :::
 
 :::copy
 Copy Me!
+:::
+
+:::sh
+dotnet install -g x
 :::
 
 See Razor Press's [Markdown Containers docs](https://razor-press.web-templates.io/containers) for the complete list of available containers and examples on how to 
@@ -264,6 +268,12 @@ Markdown Fragments can be then included inside other markdown documents with the
 :::pre
 ::include vue/formatters.md::
 :::
+
+#### Element
+
+<include src="formatters.md" />
+
+<TestComponent />
 
 Where it will be replaced with the HTML rendered markdown contents of fragments maintained in `_pages/_include`.
 
@@ -325,7 +335,7 @@ Most of Razor SSG's features are currently being driven by requirements from the
 we welcome any requests for missing features in other popular Blogging Platforms you'd like to see in Razor SSG to help 
 make it a high quality blogging solution built with our preferred C#/.NET Technology Stack, by submitting them to:
 
-:::{.text-indigo-600 .text-3xl .text-center}
+:::div{.text-indigo-600 .text-3xl .text-center}
 [https://servicestack.net/ideas](https://servicestack.net/ideas)
 :::
 
