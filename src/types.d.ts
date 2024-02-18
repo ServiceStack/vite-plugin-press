@@ -34,7 +34,12 @@ export interface Options {
     /**
      * Where to publish json metadata
      */
-    metaPath?: string
+    metadataPath?: string
+
+    /**
+     * Which markdown properties to export in metadata
+     */
+    exportProps?: string[]
 
     /**
      * Fallback Author profile url
@@ -46,6 +51,11 @@ export interface Options {
      * @default "https://source.unsplash.com/random/2000x1000/?stationary"
      */
     fallbackPostImageUrl?: string
+
+    /**
+     * Base URL for the site to resolve absolute URLs
+     */
+    baseUrl?: string
 }
 
 export interface VitePluginPressPlugin extends Plugin {

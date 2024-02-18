@@ -41,7 +41,7 @@ export default function(options:Options={}): VitePluginPressPlugin {
                 const includes = markdownIncludes.loadFrom(options.includesPath!)
                 if (options.metadataPath) {
                     markdownMetadata.generateMetadata({ blog, videos, whatsNew }, 
-                        { toDir:options.metadataPath, baseUrl:options.baseUrl })
+                        { toDir:options.metadataPath, baseUrl:options.baseUrl, exportProps:options.exportProps })
                 }
 
                 const blogComponents = markdownBlog.generateComponents(blog)
