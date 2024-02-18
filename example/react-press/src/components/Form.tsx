@@ -29,6 +29,12 @@ const humanLabel = (s:string) => humanize(toPascalCase(s))
 export type SuccessContext<T> = { response?:T }
 export type SuccessEventHandler<T> = (ctx:SuccessContext<T>) => Promise<any> | void;
 
+const input = {
+    base:    'block w-full sm:text-sm rounded-md dark:text-white dark:bg-gray-900 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none',
+    invalid: 'pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500',
+    valid:   'shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 dark:border-gray-600',
+}
+
 type FormProps = {
     className?: string
     method?: string
@@ -118,11 +124,9 @@ export const TextInput: FC<TextInputProps> = ({ status, id, type, className, pla
     }
     
     return (<div>
-        {!useLabel ? null : <label htmlFor={id} className="block text-sm font-medium text-gray-700">{useLabel}</label>}
+        {!useLabel ? null : <label htmlFor={id} className="block text-sm font-medium text-gray-700 dark:text-gray-200">{useLabel}</label>}
         <div className="mt-1 relative rounded-md shadow-sm">
-          <input type={useType} className={classNames(['block w-full sm:text-sm rounded-md', ...cssClass(
-            'shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300',
-          'pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500')])}
+          <input type={useType} className={classNames([input.base, ...cssClass(input.valid,input.invalid)])}
             id={id} name={id} placeholder={usePlaceholder} {...remaining} />
         {!hasErrorField ? null : <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
             {/*Heroicon name: solid/exclamation-circle*/}
@@ -134,7 +138,7 @@ export const TextInput: FC<TextInputProps> = ({ status, id, type, className, pla
         {hasErrorField 
             ? <p className="mt-2 text-sm text-red-500" id={`${id}-error`}>{errorField}</p>
             : useHelp
-                ? <p id={`${id}-description`} className="text-gray-500">{useHelp}</p> : null}
+                ? <p id={`${id}-description`} className="text-gray-500 dark:text-gray-400">{useHelp}</p> : null}
       </div>)
 }
 
@@ -244,11 +248,11 @@ export const Checkbox: FC<CheckboxProps> = ({ status, id, label, help, ...remain
                 name={id}
                 type="checkbox"
                 value="true"
-                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 rounded border-gray-300 dark:border-gray-600 dark:bg-gray-800"
                 {...remaining} />
         </div>
         <div className="ml-3 text-sm">
-            <label htmlFor={id} className="font-medium text-gray-700 select-none">{useLabel}</label>
+            <label htmlFor={id} className="font-medium text-gray-700 dark:text-gray-200 select-none">{useLabel}</label>
             {hasErrorField 
                 ? <p className="mt-2 text-sm text-red-500" id="`${id}-error`">{errorField}</p>
                 : help 

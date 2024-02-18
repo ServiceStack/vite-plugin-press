@@ -7,7 +7,9 @@ function Include({ src }:{ src:string}) {
     const press = React.useContext(PressContext)
     const factory = (press.components as any).includes[src]
     const Component = lazy(factory ? factory : () => Promise.resolve(<></>))
-    return <Suspense fallback={<></>}><Component components={Components} /></Suspense>
+    return factory
+        ? <Suspense fallback={<></>}><Component components={Components} /></Suspense>
+        : <div className="text-red-500">Include '{src}' not found</div>
 }
 
 type AlertProps = {

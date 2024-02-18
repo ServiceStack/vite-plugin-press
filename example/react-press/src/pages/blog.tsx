@@ -136,8 +136,9 @@ export default () => {
                                             </div>
                                             <div className="ml-3">
                                                 <p className="text-sm font-medium text-gray-900 dark:text-gray-50">
-                                                    <a v-if="authorLink(post.author)" href="authorLink(post.author)!" className="hover:underline">{post.author}</a>
-                                                    <span v-else>{post.author}</span>
+                                                    {authorLink(post.author)
+                                                        ? <a href={authorLink(post.author)!} className="hover:underline">{post.author}</a>
+                                                        : <span>{post.author}</span>}
                                                 </p>
                                                 <div className="flex space-x-1 text-sm text-gray-500 dark:text-gray-400">
                                                     <time dateTime={dateTimestamp(post.date)}>{dateLabel(post.date)}</time>
