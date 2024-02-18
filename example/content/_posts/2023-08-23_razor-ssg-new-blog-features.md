@@ -250,7 +250,7 @@ Copy Me!
 :::
 
 :::sh
-dotnet install -g x
+dotnet tool install --global x
 :::
 
 See Razor Press's [Markdown Containers docs](https://razor-press.web-templates.io/containers) for the complete list of available containers and examples on how to 
