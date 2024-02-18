@@ -30,6 +30,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "../../src/*.ts", "../../client.d.ts", "../content/**/*.mdx", "../content/_posts/components/Plugin.tsx"],
+  "include": ["src", "../../src/*.ts", "../../client.d.ts", "../content/**/*.mdx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

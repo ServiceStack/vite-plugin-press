@@ -1,19 +1,12 @@
+import { Link } from "react-router-dom"
 import Layout from "@/components/Layout"
-import { HelmetProvider, Helmet } from "react-helmet-async"
 import GettingStarted from "@/components/GettingStarted"
 import VideoGroup from "@/components/VideoGroup"
 import SrcPage from "@/components/SrcPage"
 
 const Index = () => {
-    const title = `React SPA with Vite + TypeScript`
-
     return (
-        <Layout>
-            <HelmetProvider>
-                <Helmet>
-                    <title>{title}</title>
-                </Helmet>
-            </HelmetProvider>
+        <Layout title="React SPA with Vite + TypeScript">
             <div className="mx-auto mt-16 max-w-7xl px-4 sm:mt-24">
                 <div className="text-center">
                     <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl md:text-6xl">
@@ -25,9 +18,9 @@ const Index = () => {
                     </p>
                     <div className="mx-auto mt-5 max-w-md sm:flex sm:justify-center md:mt-8">
                         <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-                            <a href="https://ui.shadcn.com/docs/components/accordion" className="flex w-full items-center justify-center rounded-md border border-transparent bg-link-dark dark:bg-link-dark px-8 py-3 text-base font-medium text-white hover:bg-gray-700 md:py-4 md:px-10 md:text-lg">
+                            <Link to="https://ui.shadcn.com/docs/components/accordion" className="flex w-full items-center justify-center rounded-md border border-transparent bg-link-dark dark:bg-link-dark px-8 py-3 text-base font-medium text-white hover:bg-gray-700 md:py-4 md:px-10 md:text-lg">
                                 React Component Gallery
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

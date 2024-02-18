@@ -7,7 +7,6 @@ import React, {
     createContext,
     useState
 } from "react"
-import { useSearchParams } from "react-router-dom"
 import classNames from "classnames"
 
 export const ApiContext = createContext<ApiState>({ })
@@ -16,8 +15,7 @@ export type ApiState = {
     error?: ResponseStatus
 }
 
-export function getRedirect() {
-    const [searchParams] = useSearchParams()
+export function getRedirect(searchParams:URLSearchParams) {
     const redirect = searchParams.get('redirect')
     return redirect && Array.isArray(redirect)
         ? redirect[0]
