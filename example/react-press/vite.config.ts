@@ -15,7 +15,6 @@ import remarkParse from "remark-parse"
 import rehypeStringify from 'rehype-stringify'
 import remarkDirective from 'remark-directive'
 import { visit } from 'unist-util-visit'
-// import { myRemarkPlugin } from './markdown-plugin'
 
 // @ts-ignore - no types
 import Press from "../../src"
@@ -52,6 +51,9 @@ if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
 
 const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
   env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:5001';
+const baseUrl = process.env.NODE_ENV === 'development'
+    ? "https://locahost:5173"
+    : process.env.DEPLOY_HOST ? `https://${process.env.DEPLOY_HOST}` : undefined
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => {
@@ -109,6 +111,7 @@ export default defineConfig(async () => {
         postsPath: '../content/_posts',
         whatsNewPath: '../content/_whatsnew',
         includesPath: '../content/_includes',
+        baseUrl,
         metadataPath: './public/api',
       }),
     ],
