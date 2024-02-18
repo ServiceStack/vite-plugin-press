@@ -60,9 +60,7 @@ export function generateMetadata(data:any, options:MetadataOptions) {
         console.error('toDir is required', options)
         return
     }
-    if (fs.existsSync(toDir)) {
-        fs.rmdirSync(toDir, { recursive: true })
-    }
+    fs.rmSync(toDir, { recursive: true, force: true })
     fs.mkdirSync(toDir, { recursive: true })
 
     const featureDocs:{[feature:string]:Doc[]} = {}
