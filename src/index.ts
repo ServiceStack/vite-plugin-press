@@ -1,9 +1,9 @@
-import * as markdownBlog from './blog'
-import * as markdownVideos from './videos'
-import * as markdownWhatsNew from './whatsnew'
-import * as markdownIncludes from './includes'
-import * as markdownMetadata from './metadata'
-import matter from './frontmatter'
+import * as markdownBlog from "./blog"
+import * as markdownVideos from "./videos"
+import * as markdownWhatsNew from "./whatsnew"
+import * as markdownIncludes from "./includes"
+import * as markdownMetadata from "./metadata"
+import matter from "./frontmatter"
 import { Options, VitePluginPressPlugin, VirtualPress, 
          Blog, VideoGroups, WhatsNewReleases, Doc, Post, Video, WhatsNew, Author } from "./types.d"
 

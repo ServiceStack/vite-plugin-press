@@ -1,6 +1,6 @@
-import fs from 'fs'
-import path from 'path'
-import { leftPart, rightPart, lastLeftPart, createDoc, generateSlug } from "./utils"
+import fs from "fs"
+import path from "path"
+import { leftPart, rightPart, lastLeftPart, createDoc, generateSlug, sortBy, sortDocs } from "./utils"
 import { Options, Post, Author, Blog } from "./types"
 
 export function loadFrom(fromDir:string, options: Options = {}) {

@@ -1,6 +1,6 @@
-import fs from 'fs'
-import path from 'path'
-import { createDoc, leftPart, rightPart } from "./utils"
+import fs from "fs"
+import path from "path"
+import { createDoc, leftPart, rightPart, sortBy, sortDocs } from "./utils"
 import { Options, WhatsNew, WhatsNewReleases } from "./types"
 
 export function loadFrom(fromDir:string, options: Options = {}) {
@@ -17,6 +17,7 @@ export function loadFrom(fromDir:string, options: Options = {}) {
         console.log(`Found ${dirs.length} What's New Release${dirs.length > 1 ? 's' : ''} with ${count} Feature${plural}`)
     }
 
+    dirs.reverse()
     dirs.forEach(dir => {
         const release = dir
         const datePart = leftPart(release, '_')
@@ -51,6 +52,7 @@ export function loadFrom(fromDir:string, options: Options = {}) {
             const features = releases[release] ?? (releases[release] = [])
             features.push(doc)
         })
+        sortBy(releases[release], sortDocs)
     })
     
     return releases

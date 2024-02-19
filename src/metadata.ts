@@ -1,6 +1,7 @@
-import fs from 'fs'
-import path from 'path'
+import fs from "fs"
+import path from "path"
 import { Doc, Blog, VideoGroups, WhatsNewReleases } from "./types"
+import { sortBy, sortDocs } from "./utils"
 
 const defaultExportProps = ['slug', 'title', 'summary', 'fileName', 'date', 'tags', 'author', 'image', 'wordCount', 'lineCount', 'url', 'group', 'order']
 function pick(o:any, keys:string[]) {
@@ -13,17 +14,6 @@ function pick(o:any, keys:string[]) {
     return to
 }
 
-function sortBy(o:any[], sorters:Function[]) {
-    o.sort((a:any, b:any) => {
-        for (let i=0;i<sorters.length;i++) {
-            const fn = sorters[i]
-            const result = fn(a, b)
-            if (result != 0) return result
-        }
-        return 0
-    })
-    return o
-}
 
 const exportDoc = (data:Doc, exportProps:string[]):Doc => pick(data, exportProps)
 
@@ -70,11 +60,7 @@ export function generateMetadata(data:any, options:MetadataOptions) {
     Object.keys(data).forEach(key => {
         const fn = Data[key]
         if (!fn) return
-        const allDocs = sortBy(fn(data[key]).map(x => exportDoc(x, exportProps)), [
-            (a:Doc, b:Doc) => a.date > b.date ? -1 : a.date < b.date ? 1 : 0,
-            (a:Doc, b:Doc) => (a.order ?? 0) - (b.order ?? 0),
-            (a:Doc, b:Doc) => a.fileName.localeCompare(b.fileName),
-        ]) as Doc[]
+        const allDocs = sortBy(fn(data[key]).map(x => exportDoc(x, exportProps)), sortDocs) as Doc[]
         
         if (baseUrl) {
             let urlPrefix = baseUrl.endsWith('/') ? baseUrl.substring(0, baseUrl.length - 1) : baseUrl

@@ -1,5 +1,5 @@
 import fs from "fs"
-import matter from './frontmatter'
+import matter from "./frontmatter"
 import { Options, Doc } from "./types"
 
 export function leftPart(s:string, needle:string) {
@@ -85,3 +85,22 @@ export function createDoc(filePath:string, _options: Options = {}):Doc {
     }, frontmatter) 
     return doc
 }
+
+export function sortBy(o:any[], sorters:Function[]) {
+    if (!o) return o
+    o.sort((a:any, b:any) => {
+        for (let i=0;i<sorters.length;i++) {
+            const fn = sorters[i]
+            const result = fn(a, b)
+            if (result != 0) return result
+        }
+        return 0
+    })
+    return o
+}
+
+export const sortDocs = [
+    (a:Doc, b:Doc) => (a.order ?? 0) - (b.order ?? 0),
+    (a:Doc, b:Doc) => a.date > b.date ? -1 : a.date < b.date ? 1 : 0,
+    (a:Doc, b:Doc) => a.fileName.localeCompare(b.fileName),
+]

@@ -1,4 +1,4 @@
-import parser from 'js-yaml'
+import parser from "js-yaml"
 const optionalByteOrderMark = '\\ufeff?'
 const platform = typeof process !== 'undefined' ? process.platform : ''
 const pattern = '^(' +

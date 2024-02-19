@@ -1,7 +1,7 @@
-import fs from 'fs'
-import path from 'path'
-import { createDoc } from "./utils"
-import { Options, Video, VideoGroups } from "./types"
+import fs from "fs"
+import path from "path"
+import { createDoc, sortBy, sortDocs } from "./utils"
+import type { Doc, Options, Video, VideoGroups } from "./types"
 
 export function loadFrom(fromDir:string, options: Options = {}) {
     const groups:VideoGroups = {}
@@ -29,6 +29,8 @@ export function loadFrom(fromDir:string, options: Options = {}) {
             doc.group = group
             groups[group].push(doc)
         })
+
+        sortBy(groups[group], sortDocs)
     })
     
     return groups
