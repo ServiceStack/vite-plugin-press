@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-press",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Static markdown content for creating blogs, videos",
   "repository": {
     "type": "git",
@@ -45,6 +45,7 @@
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
+    "@types/markdown-it-container": "^2.0.9",
     "@types/node": "^20.11.17",
     "eslint": "^8.56.0",
     "eslint-plugin-jest": "^27.6.3",
