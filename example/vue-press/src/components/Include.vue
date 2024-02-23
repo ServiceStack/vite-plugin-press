@@ -11,8 +11,6 @@ import type { VirtualPress } from "vite-plugin-press"
 const press: VirtualPress = inject('press')!
 const components = (press.components as any).includes || {}
 
-console.log('includes', Object.keys(components))
-
 const factory = components[props.src]
 const MarkdownComponent = factory ? defineAsyncComponent(factory) : null
 </script>

@@ -1,10 +1,9 @@
 ---
-title: ServiceStack System.Text.Json APIs
+title: System.Text.Json ServiceStack APIs
 summary: ServiceStack .NET 8+ APIs can now be configured to use high-performance async System.Text.Json serialization  
 tags: [servicestack,.net8,json,apis]
 image: https://images.unsplash.com/photo-1644325349124-d1756b79dd42?crop=entropy&fit=crop&h=1000&w=2000
 author: Gayle Smith
-draft: true
 ---
 
 In continuing our focus to enable ServiceStack to become a deeply integrated part of .NET 8 Application's, ServiceStack
@@ -49,6 +48,11 @@ Service Clients, which is configured to:
 - Serializes `TimeSpan` and `TimeOnly` Data Types with [XML Schema Time format](https://www.w3.org/TR/xmlschema-2/#isoformats)
 - Supports `[DataContract]` annotations
 - Supports Custom Enum Serialization
+
+### Benefits all Add ServiceStack Reference Languages
+
+This compatibility immediately benefits all of ServiceStack's [Add ServiceStack Reference](https://docs.servicestack.net/add-servicestack-reference) 
+native typed integrations for **11 programming languages** which all utilize ServiceStack's JSON API endpoints - now serialized with System.Text.Json 
 
 ### Support for DataContract Annotations
 
